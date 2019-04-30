@@ -109,7 +109,7 @@ class Response extends Message implements ResponseInterface
      * @param StreamInterface|null  $body    The response body.
      */
     public function __construct(
-        $status = StatusCodeInterface::STATUS_OK,
+        int $status = StatusCodeInterface::STATUS_OK,
         HeadersInterface $headers = null,
         StreamInterface $body = null
     ) {
@@ -132,7 +132,7 @@ class Response extends Message implements ResponseInterface
     /**
      * {@inheritdoc}
      */
-    public function getStatusCode()
+    public function getStatusCode(): int
     {
         return $this->status;
     }
@@ -163,7 +163,7 @@ class Response extends Message implements ResponseInterface
     /**
      * {@inheritdoc}
      */
-    public function getReasonPhrase()
+    public function getReasonPhrase(): string
     {
         if ($this->reasonPhrase) {
             return $this->reasonPhrase;
@@ -183,7 +183,7 @@ class Response extends Message implements ResponseInterface
      *
      * @throws InvalidArgumentException If an invalid HTTP status code is provided.
      */
-    protected function filterStatus($status): int
+    protected function filterStatus(int $status): int
     {
         if (!is_integer($status) || $status < StatusCodeInterface::STATUS_CONTINUE || $status > 599) {
             throw new InvalidArgumentException('Invalid HTTP status code.');

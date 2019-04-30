@@ -96,7 +96,7 @@ class UploadedFile implements UploadedFileInterface
     /**
      * {@inheritdoc}
      */
-    public function getStream()
+    public function getStream(): \Psr\Http\Message\StreamInterface
     {
         if ($this->moved) {
             throw new RuntimeException(sprintf('Uploaded file %s has already been moved', $this->name));
@@ -112,7 +112,7 @@ class UploadedFile implements UploadedFileInterface
     /**
      * {@inheritdoc}
      */
-    public function moveTo($targetPath)
+    public function moveTo($targetPath): void
     {
         if ($this->moved) {
             throw new RuntimeException('Uploaded file already moved');
@@ -150,7 +150,7 @@ class UploadedFile implements UploadedFileInterface
     /**
      * {@inheritdoc}
      */
-    public function getError()
+    public function getError(): int
     {
         return $this->error;
     }
@@ -158,7 +158,7 @@ class UploadedFile implements UploadedFileInterface
     /**
      * {@inheritdoc}
      */
-    public function getClientFilename()
+    public function getClientFilename(): ?string
     {
         return $this->name;
     }
@@ -166,7 +166,7 @@ class UploadedFile implements UploadedFileInterface
     /**
      * {@inheritdoc}
      */
-    public function getClientMediaType()
+    public function getClientMediaType(): ?string
     {
         return $this->type;
     }
@@ -174,7 +174,7 @@ class UploadedFile implements UploadedFileInterface
     /**
      * {@inheritdoc}
      */
-    public function getSize()
+    public function getSize(): ?int
     {
         return $this->size;
     }
@@ -188,7 +188,7 @@ class UploadedFile implements UploadedFileInterface
      *
      * @return array A normalized tree of UploadedFile instances or null if none are provided.
      */
-    public static function createFromGlobals(array $globals)
+    public static function createFromGlobals(array $globals): array
     {
         $env = new Collection($globals);
 
@@ -210,7 +210,7 @@ class UploadedFile implements UploadedFileInterface
      *
      * @return array A normalized tree of UploadedFile instances.
      */
-    private static function parseUploadedFiles(array $uploadedFiles)
+    private static function parseUploadedFiles(array $uploadedFiles): array
     {
         $parsed = [];
         foreach ($uploadedFiles as $field => $uploadedFile) {

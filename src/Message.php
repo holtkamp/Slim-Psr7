@@ -47,7 +47,7 @@ abstract class Message implements MessageInterface
      * @param string $name  The property name
      * @param mixed  $value The property value
      */
-    public function __set($name, $value)
+    public function __set(string $name, $value): void
     {
         // Do nothing
     }
@@ -55,7 +55,7 @@ abstract class Message implements MessageInterface
     /**
      * {@inheritdoc}
      */
-    public function getProtocolVersion()
+    public function getProtocolVersion(): string
     {
         return $this->protocolVersion;
     }
@@ -80,7 +80,7 @@ abstract class Message implements MessageInterface
     /**
      * {@inheritdoc}
      */
-    public function getHeaders()
+    public function getHeaders(): array
     {
         return $this->headers->all();
     }
@@ -88,7 +88,7 @@ abstract class Message implements MessageInterface
     /**
      * {@inheritdoc}
      */
-    public function hasHeader($name)
+    public function hasHeader($name): bool
     {
         return $this->headers->has($name);
     }
@@ -104,7 +104,7 @@ abstract class Message implements MessageInterface
     /**
      * {@inheritdoc}
      */
-    public function getHeaderLine($name)
+    public function getHeaderLine($name): string
     {
         return implode(',', $this->headers->get($name, []));
     }
@@ -163,7 +163,7 @@ abstract class Message implements MessageInterface
     /**
      * {@inheritdoc}
      */
-    public function getBody()
+    public function getBody(): \Psr\Http\Message\StreamInterface
     {
         return $this->body;
     }
@@ -183,7 +183,7 @@ abstract class Message implements MessageInterface
      * @param string $name
      * @throws InvalidArgumentException
      */
-    protected function validateHeaderName($name)
+    protected function validateHeaderName(string $name): void
     {
         if (!is_string($name) || empty($name)) {
             throw new InvalidArgumentException('Header names must be a non empty strings');
@@ -198,7 +198,7 @@ abstract class Message implements MessageInterface
      * @param string|string[] $value
      * @throws InvalidArgumentException
      */
-    protected function validateHeaderValue($value)
+    protected function validateHeaderValue($value): void
     {
         if (!is_array($value)) {
             $value = [$value];

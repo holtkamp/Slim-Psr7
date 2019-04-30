@@ -93,7 +93,7 @@ class Uri implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getScheme()
+    public function getScheme(): string
     {
         return $this->scheme;
     }
@@ -119,7 +119,7 @@ class Uri implements UriInterface
      * @throws InvalidArgumentException If the Uri scheme is not a string.
      * @throws InvalidArgumentException If Uri scheme is not "", "https", or "http".
      */
-    protected function filterScheme($scheme)
+    protected function filterScheme($scheme): string
     {
         if (!is_string($scheme)) {
             throw new InvalidArgumentException('Uri scheme must be a string.');
@@ -142,7 +142,7 @@ class Uri implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getAuthority()
+    public function getAuthority(): string
     {
         $userInfo = $this->getUserInfo();
         $host = $this->getHost();
@@ -154,7 +154,7 @@ class Uri implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getUserInfo()
+    public function getUserInfo(): string
     {
         $info = $this->user;
 
@@ -191,7 +191,7 @@ class Uri implements UriInterface
      *
      * @return string
      */
-    protected function filterUserInfo(?string $info = null)
+    protected function filterUserInfo(?string $info = null): string
     {
         if (!is_string($info)) {
             return '';
@@ -211,7 +211,7 @@ class Uri implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getHost()
+    public function getHost(): string
     {
         return $this->host;
     }
@@ -237,7 +237,7 @@ class Uri implements UriInterface
      * @return string
      * @throws InvalidArgumentException for invalid host names.
      */
-    protected function filterHost($host)
+    protected function filterHost($host): string
     {
         if (is_object($host) && method_exists($host, '__toString')) {
             $host = (string) $host;
@@ -257,7 +257,7 @@ class Uri implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getPort()
+    public function getPort(): ?int
     {
         return $this->port && !$this->hasStandardPort() ? $this->port : null;
     }
@@ -279,7 +279,7 @@ class Uri implements UriInterface
      *
      * @return bool
      */
-    protected function hasStandardPort()
+    protected function hasStandardPort(): bool
     {
         return ($this->scheme === 'http' && $this->port === 80) || ($this->scheme === 'https' && $this->port === 443);
     }
@@ -292,7 +292,7 @@ class Uri implements UriInterface
      *
      * @throws InvalidArgumentException If the port is invalid.
      */
-    protected function filterPort($port): ?int
+    protected function filterPort(?int $port): ?int
     {
         if (is_null($port) || (is_integer($port) && ($port >= 1 && $port <= 65535))) {
             return $port;
@@ -304,7 +304,7 @@ class Uri implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path;
     }
@@ -336,7 +336,7 @@ class Uri implements UriInterface
      * @return string       The RFC 3986 percent-encoded uri path.
      * @link   http://www.faqs.org/rfcs/rfc3986.html
      */
-    protected function filterPath($path): string
+    protected function filterPath(string $path): string
     {
         $match = preg_replace_callback(
             '/(?:[^a-zA-Z0-9_\-\.~:@&=\+\$,\/;%]+|%(?![A-Fa-f0-9]{2}))/',
@@ -352,7 +352,7 @@ class Uri implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getQuery()
+    public function getQuery(): string
     {
         return $this->query;
     }
@@ -402,7 +402,7 @@ class Uri implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getFragment()
+    public function getFragment(): string
     {
         return $this->fragment;
     }
@@ -454,7 +454,7 @@ class Uri implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function __toString()
+    public function __toString(): string
     {
         $scheme = $this->getScheme();
         $authority = $this->getAuthority();

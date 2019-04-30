@@ -74,7 +74,7 @@ class Request extends Message implements ServerRequestInterface
      * @throws InvalidArgumentException on invalid HTTP method
      */
     public function __construct(
-        $method,
+        string $method,
         UriInterface $uri,
         HeadersInterface $headers,
         array $cookies,
@@ -116,7 +116,7 @@ class Request extends Message implements ServerRequestInterface
     /**
      * {@inheritdoc}
      */
-    public function getMethod()
+    public function getMethod(): string
     {
         return $this->method;
     }
@@ -136,11 +136,10 @@ class Request extends Message implements ServerRequestInterface
     /**
      * Validate the HTTP method
      *
-     * @param  string $method
-     * @return string
+     * @param  string|object $method
      * @throws InvalidArgumentException on invalid HTTP method.
      */
-    protected function filterMethod($method)
+    protected function filterMethod($method): string
     {
         if (!is_string($method)) {
             throw new InvalidArgumentException(sprintf(
@@ -162,7 +161,7 @@ class Request extends Message implements ServerRequestInterface
     /**
      * {@inheritdoc}
      */
-    public function getRequestTarget()
+    public function getRequestTarget(): string
     {
         if ($this->requestTarget) {
             return $this->requestTarget;
@@ -202,7 +201,7 @@ class Request extends Message implements ServerRequestInterface
     /**
      * {@inheritdoc}
      */
-    public function getUri()
+    public function getUri(): \Psr\Http\Message\UriInterface
     {
         return $this->uri;
     }
@@ -231,7 +230,7 @@ class Request extends Message implements ServerRequestInterface
     /**
      * {@inheritdoc}
      */
-    public function getCookieParams()
+    public function getCookieParams(): array
     {
         return $this->cookies;
     }
@@ -250,7 +249,7 @@ class Request extends Message implements ServerRequestInterface
     /**
      * {@inheritdoc}
      */
-    public function getQueryParams()
+    public function getQueryParams(): array
     {
         if (is_array($this->queryParams)) {
             return $this->queryParams;
@@ -279,7 +278,7 @@ class Request extends Message implements ServerRequestInterface
     /**
      * {@inheritdoc}
      */
-    public function getUploadedFiles()
+    public function getUploadedFiles(): array
     {
         return $this->uploadedFiles;
     }
@@ -298,7 +297,7 @@ class Request extends Message implements ServerRequestInterface
     /**
      * {@inheritdoc}
      */
-    public function getServerParams()
+    public function getServerParams(): array
     {
         return $this->serverParams;
     }
@@ -306,7 +305,7 @@ class Request extends Message implements ServerRequestInterface
     /**
      * {@inheritdoc}
      */
-    public function getAttributes()
+    public function getAttributes(): array
     {
         return $this->attributes->all();
     }

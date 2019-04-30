@@ -30,7 +30,7 @@ class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value)
+    public function set(string $key, $value): void
     {
         $this->data[$key] = $value;
     }
@@ -38,7 +38,7 @@ class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function get($key, $default = null)
+    public function get(string $key, $default = null)
     {
         return $this->has($key) ? $this->data[$key] : $default;
     }
@@ -46,7 +46,7 @@ class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function replace(array $items)
+    public function replace(array $items): void
     {
         foreach ($items as $key => $value) {
             $this->set($key, $value);
@@ -56,7 +56,7 @@ class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function all()
+    public function all(): array
     {
         return $this->data;
     }
@@ -64,7 +64,7 @@ class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function keys()
+    public function keys(): array
     {
         return array_keys($this->data);
     }
@@ -72,7 +72,7 @@ class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function has($key)
+    public function has(string $key): bool
     {
         return array_key_exists($key, $this->data);
     }
@@ -80,7 +80,7 @@ class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function remove($key)
+    public function remove(string $key): void
     {
         unset($this->data[$key]);
     }
@@ -88,7 +88,7 @@ class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function clear()
+    public function clear(): void
     {
         $this->data = [];
     }
@@ -96,7 +96,7 @@ class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetExists($key)
+    public function offsetExists($key): bool
     {
         return $this->has($key);
     }
@@ -112,7 +112,7 @@ class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($key, $value)
+    public function offsetSet($key, $value): void
     {
         $this->set($key, $value);
     }
@@ -120,7 +120,7 @@ class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($key)
+    public function offsetUnset($key): void
     {
         $this->remove($key);
     }
@@ -128,7 +128,7 @@ class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function count()
+    public function count(): int
     {
         return count($this->data);
     }
@@ -136,7 +136,7 @@ class Collection implements CollectionInterface
     /**
      * {@inheritdoc}
      */
-    public function getIterator()
+    public function getIterator(): \ArrayIterator
     {
         return new ArrayIterator($this->data);
     }
